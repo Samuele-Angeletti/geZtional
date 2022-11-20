@@ -40,4 +40,10 @@ public class Unit : Selectable
         behaviorTree.SetVariableValue("NewDestination", true);
         behaviorTree.SetVariableValue("Destination", destination);
     }
+
+    public override void SetTarget(GameObject target)
+    {
+        behaviorTree.SetVariableValue("TargetEnemy", target);
+    }
+
 }

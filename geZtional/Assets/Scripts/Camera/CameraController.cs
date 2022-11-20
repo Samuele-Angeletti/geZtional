@@ -160,12 +160,15 @@ public class CameraController : MonoBehaviour
         return _mainCamera.ScreenPointToRay(Input.mousePosition);
     }
 
-    public Vector3 GetMousePosition()
+    public Vector3 GetMousePosition(out RaycastHit[] hits)
     {
-        Plane plane = new Plane(Vector3.up, Vector3.zero);
+        Plane plane = new(Vector3.up, Vector3.zero);
         Ray ray = GetRayMousePosition();
+        hits = null;
         if (plane.Raycast(ray, out float entry))
         {
+            hits = new RaycastHit[5];
+            Physics.RaycastNonAlloc(ray, hits);
             return ray.GetPoint(entry);
         }
         return Vector3.zero;
@@ -325,7 +328,13 @@ public class CameraController : MonoBehaviour
     public void RightClickedPerfomed()
     {
         // TODO: se con il ray cast becco un nemico, allora attacca, se becco una struttura allora boh, altrimenti move
-        _playerController.SetUnitsDestination(GetMousePosition());
+        RaycastHit[] hits;
+        Vector3 mousePosition = GetMousePosition(out hits);
+
+        //if (hits.Any(x => x.collider.gameObject.GetComponent<Human>()))
+        //    _playerController.SetDestinationAndAttack(mousePosition, hits.First(x => x.collider.gameObject.GetComponent<Human>()).collider.gameObject);
+        //else
+            _playerController.SetUnitsDestination(mousePosition);
     }
 
     private bool OverUIElement()

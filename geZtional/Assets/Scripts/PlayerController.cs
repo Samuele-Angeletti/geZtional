@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour, ISubscriber
@@ -9,7 +10,7 @@ public class PlayerController : MonoBehaviour, ISubscriber
     [SerializeField] int maxInLineFormation = 10;
     [SerializeField] float unitFormationOffset = 4;
     [SerializeField] GameObject unitDestinationEffect;
-
+    [SerializeField] public bool ControllingZombies;
 
     private List<Selectable> allSelectables;
     private List<Selectable> activeSelectables;
@@ -92,5 +93,11 @@ public class PlayerController : MonoBehaviour, ISubscriber
             activeSelectables[i].SetDestination(nextDestination);
         }
 
+    }
+
+    public void SetDestinationAndAttack(Vector3 destination, GameObject enemy)
+    {
+        SetUnitsDestination(destination);
+        activeSelectables.Where(x => x.SelectableType == ESelectableType.Unit).ToList().ForEach(x => x.SetTarget(enemy));
     }
 }

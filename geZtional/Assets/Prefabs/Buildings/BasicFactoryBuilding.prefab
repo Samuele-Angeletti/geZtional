@@ -132,14 +132,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d71cbc25ec8472f4498d44b1750b72df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSelectEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDeselectEvent:
-    m_PersistentCalls:
-      m_Calls: []
   IsSelected: 0
   SelectableType: 0
+  FactionType: 0
   selectionGraphics: {fileID: 2714947452332000528}
   flagRenderer: {fileID: 7911422739878993027, guid: e0d7ac7f26c13fb448f7a9482a3c756c, type: 3}
   productionQueueLimit: 10
@@ -147,7 +142,7 @@ MonoBehaviour:
   TimePassed: 0
   DestinationFlag: {x: 0, y: 0, z: 0}
   ProductionQueue: 0
-  UnitProductionPrefab: {fileID: 1448831787210824719, guid: 747e99355fdf58d44be71715b8738b99, type: 3}
+  UnitProductionPrefab: {fileID: 454720953627047638, guid: 747e99355fdf58d44be71715b8738b99, type: 3}
 --- !u!65 &1896854573450666966
 BoxCollider:
   m_ObjectHideFlags: 0

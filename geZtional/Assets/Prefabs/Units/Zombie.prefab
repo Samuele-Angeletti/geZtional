@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1448831787210824714}
-  - component: {fileID: 1448831787210824719}
   - component: {fileID: 1448831787210824716}
   - component: {fileID: 1448831787210824717}
   - component: {fileID: 4845001878452561661}
@@ -41,27 +40,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1448831787210824719
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1448831787210824715}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26c94bf44355fb94f87b6895b51695b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnSelectEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDeselectEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  IsSelected: 0
-  SelectableType: 0
-  selectionGraphics: {fileID: 1378372316437441569}
 --- !u!136 &1448831787210824716
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -171,6 +149,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1dcf656209efef46ae0fe0280883eb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsSelected: 0
+  SelectableType: 0
+  selectionGraphics: {fileID: 1378372316437441569}
 --- !u!114 &1937452877374638093
 MonoBehaviour:
   m_ObjectHideFlags: 0

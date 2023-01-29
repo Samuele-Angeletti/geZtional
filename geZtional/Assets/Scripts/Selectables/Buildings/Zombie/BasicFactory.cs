@@ -11,8 +11,12 @@ public class BasicFactory : Building
 
     [Space(20)]
     [Header("Basic Fatory Settings")]
-    [SerializeField] Unit UnitProductionPrefab;
+    [SerializeField] Zombie UnitProductionPrefab;
 
+    private void Awake()
+    {
+        FactionType = EFactionType.Zombie;
+    }
 
     private void Update()
     {
@@ -32,7 +36,7 @@ public class BasicFactory : Building
                 DestinationFlag = GetNextEmptySpace();
             }
 
-            Unit newUnit = Instantiate(UnitProductionPrefab, GetNextEmptySpace(), Quaternion.identity);
+            Zombie newUnit = Instantiate(UnitProductionPrefab, GetNextEmptySpace(), Quaternion.identity);
             newUnit.Initialize();
             newUnit.SetDestination(DestinationFlag);
 

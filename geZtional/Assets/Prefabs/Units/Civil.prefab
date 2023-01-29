@@ -270,7 +270,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0556620a77e5e8a43a55f3b471730393, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsSelected: 0
+  SelectableType: 0
+  FactionType: 0
   ZombiePrefabToSpawn: {fileID: 1448831787210824715, guid: 747e99355fdf58d44be71715b8738b99, type: 3}
+  selectionGraphics: {fileID: 5227753330842790475}
 --- !u!114 &7712989157060499635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -290,7 +294,7 @@ MonoBehaviour:
   logTaskChanges: 0
   group: 0
   resetValuesOnRestart: 0
-  externalBehavior: {fileID: 11400000, guid: 46e7ba1e4b316ae499a9d17429789cbb, type: 2}
+  externalBehavior: {fileID: 11400000, guid: 78397c6d1f6ee7a48885657f998f2858, type: 2}
   mBehaviorSource:
     behaviorName: Behavior
     behaviorDescription: 

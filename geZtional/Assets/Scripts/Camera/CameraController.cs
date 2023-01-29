@@ -93,7 +93,7 @@ public class CameraController : MonoBehaviour
             {
                 if (UnitIsInsideBounds(_mainCamera.WorldToScreenPoint(_playerController.AllSelectables[i].transform.position), bounds))
                 {
-                    if(_playerController.AllSelectables[i].SelectableType == ESelectableType.Unit && !castedSelectables.Contains(_playerController.AllSelectables[i]))
+                    if(_playerController.AllSelectables[i].FactionType == _playerController.Faction && _playerController.AllSelectables[i].SelectableType == ESelectableType.Unit && !castedSelectables.Contains(_playerController.AllSelectables[i]))
                         castedSelectables.Add(_playerController.AllSelectables[i]);
                 }
                 else
@@ -142,7 +142,7 @@ public class CameraController : MonoBehaviour
                     if (raycastHit.collider != null)
                     {
                         Selectable selectable = raycastHit.collider.gameObject.GetComponent<Selectable>();
-                        if (selectable != null)
+                        if (selectable != null && selectable.FactionType == _playerController.Faction)
                         {
                             _playerController.Selection(new List<Selectable>() { selectable });
                         }
@@ -187,33 +187,33 @@ public class CameraController : MonoBehaviour
                 _newPosition = transform.position + _dragStartPosition - _dragCurrentPosition;
             }
         }
-        
-        //if(Input.mousePosition.y >= Screen.height - panBorderThickness)
+
+        //if (Input.mousePosition.y >= Screen.height - panBorderThickness)
         //{
         //    _direction += transform.forward;
         //    _movingByMouse = true;
         //}
-        //else if(Input.mousePosition.x >= Screen.width - panBorderThickness)
+        //else if (Input.mousePosition.x >= Screen.width - panBorderThickness)
         //{
         //    _direction += transform.right;
         //    _movingByMouse = true;
         //}
-        //else if(Input.mousePosition.y <= panBorderThickness)
+        //else if (Input.mousePosition.y <= panBorderThickness)
         //{
         //    _direction += -transform.forward;
         //    _movingByMouse = true;
         //}
-        //else if(Input.mousePosition.x <= panBorderThickness)
+        //else if (Input.mousePosition.x <= panBorderThickness)
         //{
         //    _direction += -transform.right;
         //    _movingByMouse = true;
         //}
-        //else if(_movingByMouse)
+        //else if (_movingByMouse)
         //{
         //    _movingByMouse = false;
         //    _direction = Vector3.zero;
         //}
-        //_direction = _direction.normalized;
+        _direction = _direction.normalized;
     }
 
     void HandleMovement()
@@ -305,7 +305,7 @@ public class CameraController : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit raycastHit))
         {
             Selectable selectable = raycastHit.collider.gameObject.GetComponent<Selectable>();
-            if (selectable != null)
+            if (selectable != null && selectable.FactionType == _playerController.Faction && selectable.SelectableType == ESelectableType.Unit)
             {
                 ESelectableType type = selectable.SelectableType;
                 List<Selectable> selectables = _playerController.AllSelectables.Where(x => x.SelectableType == type).ToList();

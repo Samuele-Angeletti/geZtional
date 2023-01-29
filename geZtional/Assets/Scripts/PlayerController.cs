@@ -7,10 +7,13 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour, ISubscriber
 {
     [Header("Selection Settings")]
+    public EFactionType Faction;
     [SerializeField] int maxInLineFormation = 10;
     [SerializeField] float unitFormationOffset = 4;
     [SerializeField] GameObject unitDestinationEffect;
     [SerializeField] public bool ControllingZombies;
+
+
 
     private List<Selectable> allSelectables;
     private List<Selectable> activeSelectables;
@@ -34,7 +37,7 @@ public class PlayerController : MonoBehaviour, ISubscriber
         }
 
         activeSelectables.Clear();
-        newSelectables.ForEach(x => x.OnSelect());
+        newSelectables.Where(x => x.FactionType == Faction).ToList().ForEach(x => x.OnSelect());
 
         activeSelectables.AddRange(newSelectables);
     }

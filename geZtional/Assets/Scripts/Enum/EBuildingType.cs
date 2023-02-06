@@ -7,10 +7,14 @@ using System.Threading.Tasks;
 
 public enum EBuildingType
 {
-    BasicFactory,
-    MediumFactory,
-    BigFactory,
-    Fortress,
-    Nest
+    ZombieNest,
+    ZombieTower,
+    ZombieFortessWeb,
+    ZombieBrain,
+    HumanOffice,
+    HumanHouse,
+    HumanHospital,
+    HumanBarracks,
+    HuamnFortress
 }
 

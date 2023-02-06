@@ -6,16 +6,44 @@ using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
+    #region SINGLETON
+    private static GameManager instance;
+    public static GameManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<GameManager>();
+                if (instance != null)
+                    return instance;
+
+                GameObject go = new GameObject("GameManager");
+                return go.AddComponent<GameManager>();
+            }
+            else
+                return instance;
+        }
+        set
+        {
+            instance = value;
+        }
+    }
+    #endregion
+
     [SerializeField] CameraController controller;
 
-    private static GameManager _instance;
-    public static GameManager Instance => _instance;
+    
     public InputControls inputActions;
     public CameraController CameraController => controller;
     public PlayerController PlayerController;
+
+    public List<Settings> Settings;
+
+    public Settings CurrentSetting;
+
     private void Awake()
     {
-        _instance = this;
         inputActions = new InputControls();
         inputActions.Player.Enable();
 
@@ -33,6 +61,13 @@ public class GameManager : MonoBehaviour
         inputActions.Player.MouseLeft.canceled += MouseLeftCanceled;
         inputActions.Player.DoubleLeftMouseClick.performed += DoubleLeftMouseClickPerformed;
         inputActions.Player.MouseRight.performed += MouseRightPerformed;
+    }
+
+    public Settings SetInitialSetting(EDifficultMode difficultMode, EFactionType factionType)
+    {
+        CurrentSetting = Settings.Find(x => x.User == factionType && x.difficultMode == difficultMode);
+        PlayerController.Faction = factionType;
+        return CurrentSetting;
     }
 
     private void MouseRightPerformed(InputAction.CallbackContext obj)
@@ -99,4 +134,29 @@ public class GameManager : MonoBehaviour
     {
         controller.SetDirection(obj.ReadValue<Vector3>());
     }
+}
+[Serializable]
+public class Settings
+{
+    public EDifficultMode difficultMode;
+    public EFactionType User;
+    public EFactionType AI;
+
+    [Header("Zombies")]
+    public float StartVirus;
+    public int MaxZombies;
+    public int StartZombies;
+
+    [Header("Humans")]
+    public float StartGold;
+    public int MaxHumans;
+    public int StartHumans;
+}
+
+public enum EDifficultMode
+{
+    Easy,
+    Medium,
+    Hard,
+    Thriller
 }

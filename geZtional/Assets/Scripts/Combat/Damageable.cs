@@ -21,20 +21,20 @@ public class Damageable : MonoBehaviour
         currentLife = maxLife;
         destructible = gameObject.SearchComponent<IDestructible>();
 
-        HumanBuilding humanBuilding = gameObject.SearchComponent<HumanBuilding>();
-        if (humanBuilding != null)
-            DamageableType = EDamageableType.HumanBuilding;
-        else
-        {
-            Human human = gameObject.SearchComponent<Human>();
-            if (human != null)
-                DamageableType = EDamageableType.Human;
-            else
-            {
-                Building building = gameObject.SearchComponent<Building>();
-                DamageableType = building != null ? EDamageableType.ZombieBuilding : EDamageableType.Zombie;
-            }
-        }
+        //HumanBuilding humanBuilding = gameObject.SearchComponent<HumanBuilding>();
+        //if (humanBuilding != null)
+        //    DamageableType = EDamageableType.HumanBuilding;
+        //else
+        //{
+        //    Human human = gameObject.SearchComponent<Human>();
+        //    if (human != null)
+        //        DamageableType = EDamageableType.Human;
+        //    else
+        //    {
+        //        BuildingZombies building = gameObject.SearchComponent<BuildingZombies>();
+        //        DamageableType = building != null ? EDamageableType.ZombieBuilding : EDamageableType.Zombie;
+        //    }
+        //}
         agent = gameObject.SearchComponent<NavMeshAgent>();
         behaviorTree = gameObject.SearchComponent<BehaviorTree>();
         rigidBody = gameObject.SearchComponent<Rigidbody>();

@@ -351,26 +351,30 @@ public class CameraController : MonoBehaviour
     }
 
 #if UNITY_EDITOR
+    [SerializeField] bool ActiveGizmo;
     private void OnDrawGizmos()
     {
-        Vector3 a = new Vector3(panLimit.x, 0, panLimit.y);
-        Vector3 b = new Vector3(-panLimit.x, 0, -panLimit.y);
-        Vector3 c = new Vector3(panLimit.x, 0, -panLimit.y);
-        Vector3 d = new Vector3(-panLimit.x, 0, panLimit.y);
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(a, 2);
-        Gizmos.DrawSphere(b, 2);
-        Gizmos.DrawSphere(c, 2);
-        Gizmos.DrawSphere(d, 2);
+        if(ActiveGizmo)
+        {
+            Vector3 a = new Vector3(panLimit.x, 0, panLimit.y);
+            Vector3 b = new Vector3(-panLimit.x, 0, -panLimit.y);
+            Vector3 c = new Vector3(panLimit.x, 0, -panLimit.y);
+            Vector3 d = new Vector3(-panLimit.x, 0, panLimit.y);
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(a, 2);
+            Gizmos.DrawSphere(b, 2);
+            Gizmos.DrawSphere(c, 2);
+            Gizmos.DrawSphere(d, 2);
 
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(a, c);
-        Gizmos.DrawLine(a, d);
-        Gizmos.DrawLine(c, b);
-        Gizmos.DrawLine(d, b);
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawLine(a, c);
+            Gizmos.DrawLine(a, d);
+            Gizmos.DrawLine(c, b);
+            Gizmos.DrawLine(d, b);
 
-        Gizmos.color = Color.black;
-        Gizmos.DrawSphere(transform.position, 5);
+            Gizmos.color = Color.black;
+            Gizmos.DrawSphere(transform.position, 5);
+        }
     }
 
 

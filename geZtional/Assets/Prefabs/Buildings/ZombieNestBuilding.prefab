@@ -92,12 +92,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1896854573450666985}
-  - component: {fileID: 6404936043970041298}
+  - component: {fileID: 4246123326258731159}
   - component: {fileID: 1896854573450666966}
   - component: {fileID: 1896854573450666967}
   - component: {fileID: 2110345208}
   m_Layer: 0
-  m_Name: BasicFactoryBuilding
+  m_Name: ZombieNestBuilding
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -120,7 +120,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6404936043970041298
+--- !u!114 &4246123326258731159
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1896854573450666986}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d71cbc25ec8472f4498d44b1750b72df, type: 3}
+  m_Script: {fileID: 11500000, guid: 8c4609fab04db1b47a6beab7c17b21f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsSelected: 0
@@ -137,12 +137,17 @@ MonoBehaviour:
   FactionType: 0
   selectionGraphics: {fileID: 2714947452332000528}
   flagRenderer: {fileID: 7911422739878993027, guid: e0d7ac7f26c13fb448f7a9482a3c756c, type: 3}
-  productionQueueLimit: 10
-  timeProductionUnit: 3
+  buildingType: 0
+  ProductionQueueLimit: 10
+  TimeProductionUnit: 5
   TimePassed: 0
   DestinationFlag: {x: 0, y: 0, z: 0}
   ProductionQueue: 0
-  UnitProductionPrefab: {fileID: 454720953627047638, guid: 747e99355fdf58d44be71715b8738b99, type: 3}
+  BuildingLife: 1000
+  BuildCost: 10
+  VirusProductionTimePerSecond: 0.2
+  ZombieProductionPrefab: {fileID: 454720953627047638, guid: 747e99355fdf58d44be71715b8738b99, type: 3}
+  VirusCostPerUnit: 30
 --- !u!65 &1896854573450666966
 BoxCollider:
   m_ObjectHideFlags: 0

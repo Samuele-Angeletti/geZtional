@@ -7,7 +7,7 @@ public class UIButtonAction : MonoBehaviour
     public Selectable CurrentSelected;
     public void Action()
     {
-        Building building = CurrentSelected as Building;
+        BuildingBase building = CurrentSelected as BuildingBase;
         if (building != null)
         {
             building.AddToQueue();

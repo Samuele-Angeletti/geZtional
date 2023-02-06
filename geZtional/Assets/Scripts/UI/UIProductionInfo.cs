@@ -12,11 +12,11 @@ public class UIProductionInfo : MonoBehaviour
     [SerializeField] TextMeshProUGUI productionQuantity;
     [SerializeField] Slider productionProgress;
 
-    private BasicFactory currentBuilding;
+    private BuildingBase currentBuilding;
 
-    public void SetCurrentBuilding(Building building)
+    public void SetCurrentBuilding(BuildingBase building)
     {
-        currentBuilding = (BasicFactory)building; // TODO: fare meglio questo switch
+        currentBuilding = (BuildingZombies)building; // TODO: fare meglio questo switch
         productionSprite.color = Color.red;
         productionInfo.text = "Nome unità";
         productionProgress.gameObject.SetActive(true);
@@ -27,9 +27,9 @@ public class UIProductionInfo : MonoBehaviour
         if (currentBuilding.ProductionQueue == 0)
             ResetValues();
 
-        productionQuantity.text = $"{currentBuilding.ProductionQueue}/{currentBuilding.productionQueueLimit}";
+        productionQuantity.text = $"{currentBuilding.ProductionQueue}/{currentBuilding.ProductionQueueLimit}";
 
-        productionProgress.value = currentBuilding.TimePassed / currentBuilding.timeProductionUnit;
+        productionProgress.value = currentBuilding.TimePassed / currentBuilding.TimeProductionUnit;
     }
 
     private void ResetValues()

@@ -1,25 +1,21 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Building : Selectable
+public class BuildingBase : Selectable
 {
-
-    [Space(20)]
-    [Header("")]
+    [Header("Shared Settings")]
     [SerializeField] SpriteRenderer selectionGraphics;
     [SerializeField] GameObject flagRenderer;
+    public EBuildingType buildingType;
 
-    [Space(20)]
-    [Header("Building Settings")]
-    [SerializeField] public int productionQueueLimit;
-    [SerializeField] public float timeProductionUnit;
+    [Header("Unit Production Settings")]
+    public int ProductionQueueLimit;
+    public float TimeProductionUnit;
 
     [HideInInspector] public float TimePassed = 0;
     [HideInInspector] public Vector3 DestinationFlag;
     [HideInInspector] public int ProductionQueue;
-    
 
     GameObject _flag;
     BoxCollider _boxCollider;
@@ -36,7 +32,7 @@ public class Building : Selectable
         base.OnSelect();
         selectionGraphics.enabled = true;
 
-        if(DestinationFlag != transform.position)
+        if (DestinationFlag != transform.position)
         {
             BuildFlag();
         }
@@ -71,11 +67,16 @@ public class Building : Selectable
 
     public virtual void AddToQueue()
     {
-        ProductionQueue = Mathf.Clamp(ProductionQueue + 1, 0, productionQueueLimit);
+        ProductionQueue = Mathf.Clamp(ProductionQueue + 1, 0, ProductionQueueLimit);
     }
 
     public virtual void RemoveToQueue()
     {
-        ProductionQueue = Mathf.Clamp(ProductionQueue - 1, 0, productionQueueLimit);
+        ProductionQueue = Mathf.Clamp(ProductionQueue - 1, 0, ProductionQueueLimit);
+    }
+
+    public virtual void ProduceUnit()
+    {
+
     }
 }

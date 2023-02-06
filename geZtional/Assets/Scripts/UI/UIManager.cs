@@ -64,7 +64,7 @@ public class UIManager : MonoBehaviour
             buildingButtonsPanel.gameObject.SetActive(true);
             buildingButtonsPanel.SetBuilding(CurrentSelectedlist[0]);
             buildingInfoPanel.SetActive(true);
-            productionPanel.SetCurrentBuilding((Building)CurrentSelectedlist[0]);
+            productionPanel.SetCurrentBuilding((BuildingZombies)CurrentSelectedlist[0]);
             selectedImage.color = Color.green;
             selectedName.text = CurrentSelectedlist[0].gameObject.name;
             selectedType.text = "Factory";

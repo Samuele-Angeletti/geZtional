@@ -8,11 +8,40 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    #region SINGLETON
+    private static UIManager instance;
+    public static UIManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<UIManager>();
+                if (instance != null)
+                    return instance;
+
+                GameObject go = new GameObject("UIManager");
+                return go.AddComponent<UIManager>();
+            }
+            else
+                return instance;
+        }
+        set
+        {
+            instance = value;
+        }
+    }
+    #endregion
+
     [Header("On Selected")]
     [SerializeField] GameObject onSelectedPanel;
     [SerializeField] TextMeshProUGUI selectedType;
     [SerializeField] TextMeshProUGUI selectedName;
     [SerializeField] Image selectedImage;
+
+    [Header("Top Bar")]
+    [SerializeField] TextMeshProUGUI factionResourceLabel;
+    [SerializeField] TextMeshProUGUI factionResourceValue;
 
     [Header("Selected Building")]
     [SerializeField] UIBuildingActions buildingButtonsPanel;
@@ -26,7 +55,16 @@ public class UIManager : MonoBehaviour
 
     [HideInInspector] public PlayerController PlayerController;
     [HideInInspector] public List<Selectable> CurrentSelectedlist;
-    
+    private EFactionType _faction;
+    public EFactionType Faction
+    {
+        get { return _faction; }
+        set
+        {
+            _faction = value;
+            factionResourceLabel.text = value == EFactionType.Zombie ? "Virus" : "Gold";
+        }
+    }
 
     private void Start()
     {
@@ -74,5 +112,22 @@ public class UIManager : MonoBehaviour
     private void CloseAll()
     {
         onSelectedPanel.SetActive(false);
+    }
+
+    private void LateUpdate()
+    {
+        UpdateResources();
+    }
+    internal void UpdateResources()
+    {
+        switch (Faction)
+        {
+            case EFactionType.Zombie:
+                factionResourceValue.text = $"{GlobalResourcesManager.Instance.TotalVirus}";
+                break;
+            case EFactionType.Human:
+                factionResourceValue.text = $"{GlobalResourcesManager.Instance.TotalGold}";
+                break;
+        }
     }
 }

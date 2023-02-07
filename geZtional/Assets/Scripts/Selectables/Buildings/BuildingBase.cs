@@ -13,7 +13,8 @@ public class BuildingBase : Selectable
     public int ProductionQueueLimit;
     public float TimeProductionUnit;
 
-    [HideInInspector] public float TimePassed = 0;
+    [HideInInspector] public float ProductionUnitTimePassed = 0;
+    [HideInInspector] public float ProductionResourceTimePassed = 0;
     [HideInInspector] public Vector3 DestinationFlag;
     [HideInInspector] public int ProductionQueue;
 

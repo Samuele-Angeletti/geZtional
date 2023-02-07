@@ -29,7 +29,7 @@ public class UIProductionInfo : MonoBehaviour
 
         productionQuantity.text = $"{currentBuilding.ProductionQueue}/{currentBuilding.ProductionQueueLimit}";
 
-        productionProgress.value = currentBuilding.TimePassed / currentBuilding.TimeProductionUnit;
+        productionProgress.value = currentBuilding.ProductionUnitTimePassed / currentBuilding.TimeProductionUnit;
     }
 
     private void ResetValues()

@@ -67,6 +67,8 @@ public class GameManager : MonoBehaviour
     {
         CurrentSetting = Settings.Find(x => x.User == factionType && x.difficultMode == difficultMode);
         PlayerController.Faction = factionType;
+        UIManager.Instance.Faction = factionType;
+        GlobalResourcesManager.Instance.SetInitialResources(CurrentSetting);
         return CurrentSetting;
     }
 

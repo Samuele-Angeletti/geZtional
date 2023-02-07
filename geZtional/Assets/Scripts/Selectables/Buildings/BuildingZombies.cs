@@ -21,22 +21,19 @@ public class BuildingZombies : BuildingBase
         FactionType = EFactionType.Zombie;
     }
 
-    public override void AddToQueue()
-    {
-        
-        base.AddToQueue();
-    }
     private void Update()
     {
         if (ProductionQueue > 0)
             ProduceUnit();
+
+        ProduceVirus();
     }
     public override void ProduceUnit()
     {
-        TimePassed += Time.deltaTime;
-        if (TimePassed >= TimeProductionUnit)
+        ProductionUnitTimePassed += Time.deltaTime * 1;
+        if (ProductionUnitTimePassed >= TimeProductionUnit)
         {
-            TimePassed = 0;
+            ProductionUnitTimePassed = 0;
 
             if (DestinationFlag == transform.position)
             {
@@ -53,7 +50,28 @@ public class BuildingZombies : BuildingBase
 
     public void ProduceVirus()
     {
+        ProductionResourceTimePassed += Time.deltaTime * 1;
+        if(ProductionResourceTimePassed >= 1)
+        {
+            ProductionResourceTimePassed = 0;
 
+            GlobalResourcesManager.Instance.TotalVirus += VirusProductionTimePerSecond;
+        }
+    }
+    public override void AddToQueue()
+    {
+        if (GlobalResourcesManager.Instance.TotalVirus - VirusCostPerUnit >= 0 && ProductionQueue < ProductionQueueLimit)
+        {
+            GlobalResourcesManager.Instance.TotalVirus -= VirusCostPerUnit;
+            base.AddToQueue();
+        }
     }
 
+    public void UseVirus(float virusAmount)
+    {
+        if (GlobalResourcesManager.Instance.TotalVirus - virusAmount >= 0)
+        {
+            GlobalResourcesManager.Instance.TotalVirus -= virusAmount;
+        }
+    }
 }

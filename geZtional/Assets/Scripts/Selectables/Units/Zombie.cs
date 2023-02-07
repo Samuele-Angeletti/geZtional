@@ -6,6 +6,13 @@ using UnityEngine;
 public class Zombie : Selectable, IDestructible
 {
     [SerializeField] SpriteRenderer selectionGraphics;
+
+    [Header("Statistics")]
+    [SerializeField] float life;
+    [SerializeField] float damage;
+    [SerializeField] float speedMovement;
+    [SerializeField, Range(1, 100)] float MutationChancePercent;
+
     BehaviorTree behaviorTree;
     public void Kill()
     {

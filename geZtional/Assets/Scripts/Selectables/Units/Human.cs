@@ -7,6 +7,15 @@ public class Human : Selectable, IDestructible
 {
     [SerializeField] GameObject ZombiePrefabToSpawn;
     [SerializeField] SpriteRenderer selectionGraphics;
+
+    [Header("Statistics")]
+    [SerializeField] float life;
+    [SerializeField] float damage;
+    [SerializeField] float speedMovement;
+    [SerializeField] float goldProductionPerSecond;
+    [SerializeField] float restingTime;
+    [SerializeField] float workingTime;
+
     BehaviorTree behaviorTree;
     private void Awake()
     {
@@ -53,5 +62,10 @@ public class Human : Selectable, IDestructible
     public override void SetTarget(GameObject target)
     {
         behaviorTree.SetVariableValue("TargetEnemy", target);
+    }
+
+    public float GoldProduced()
+    {
+        return goldProductionPerSecond;
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -77,6 +78,16 @@ public class BuildingBase : Selectable
     }
 
     public virtual void ProduceUnit()
+    {
+
+    }
+
+    public virtual void Interact()
+    {
+
+    }
+
+    public virtual void Attack()
     {
 
     }

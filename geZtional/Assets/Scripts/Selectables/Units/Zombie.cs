@@ -1,7 +1,6 @@
 using BehaviorDesigner.Runtime;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Zombie : Selectable, IDestructible
 {
@@ -11,9 +10,13 @@ public class Zombie : Selectable, IDestructible
     [SerializeField] float life;
     [SerializeField] float damage;
     [SerializeField] float speedMovement;
+    [SerializeField] float speedMovementOnAttack;
     [SerializeField, Range(1, 100)] float MutationChancePercent;
 
-    BehaviorTree behaviorTree;
+    BehaviorTree _behaviorTree;
+    Damager _damager;
+    Damageable _damageable;
+    NavMeshAgent _agent;
     public void Kill()
     {
         base.OnKilled();
@@ -22,6 +25,26 @@ public class Zombie : Selectable, IDestructible
     {
         FactionType = EFactionType.Zombie;
         SelectableType = ESelectableType.Unit;
+        _damageable = GetComponent<Damageable>();
+        _damager = GetComponent<Damager>();
+        _agent = GetComponent<NavMeshAgent>();
+        _behaviorTree = GetComponent<BehaviorTree>();
+
+        if (damage == -1)
+        {
+            _damager.Damage = UnityEngine.Random.Range(41, 61);
+            _damageable.MaxLife = UnityEngine.Random.Range(301, 501);
+            _agent.speed = UnityEngine.Random.Range(40, 50);
+        }
+        else
+        {
+            _damager.Damage = damage;
+            _damageable.MaxLife = life;
+            _agent.speed = speedMovement;
+        }
+
+        _behaviorTree.SetVariableValue("SpeedMovement", speedMovement);
+        _behaviorTree.SetVariableValue("SpeedMovementOnAttack", speedMovementOnAttack);
     }
 
     private void Start()
@@ -33,32 +56,31 @@ public class Zombie : Selectable, IDestructible
     {
         Publisher.Publish(new AddRemoveSelectableOnSceneMessage(true, this));
         SelectableType = ESelectableType.Unit;
-        behaviorTree = GetComponent<BehaviorTree>();
     }
 
     public override void OnSelect()
     {
         base.OnSelect();
         selectionGraphics.enabled = true;
-        behaviorTree.SetVariableValue("Selected", true);
+        _behaviorTree.SetVariableValue("Selected", true);
     }
 
     public override void OnDeselect()
     {
         base.OnDeselect();
         selectionGraphics.enabled = false;
-        behaviorTree.SetVariableValue("Selected", false);
+        _behaviorTree.SetVariableValue("Selected", false);
     }
 
     public override void SetDestination(Vector3 destination)
     {
-        behaviorTree.SetVariableValue("NewDestination", true);
-        behaviorTree.SetVariableValue("Destination", destination);
+        _behaviorTree.SetVariableValue("NewDestination", true);
+        _behaviorTree.SetVariableValue("Destination", destination);
     }
 
     public override void SetTarget(GameObject target)
     {
-        behaviorTree.SetVariableValue("TargetEnemy", target);
+        _behaviorTree.SetVariableValue("TargetEnemy", target);
     }
 
 }

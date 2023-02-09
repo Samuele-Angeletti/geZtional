@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BuildingHumans : BuildingBase
@@ -9,6 +10,7 @@ public class BuildingHumans : BuildingBase
     public float BuildCost;
     public List<EUnitType> HumanUnitAccepted;
     public int WorkersCountLimit;
+    public bool IsHouse => buildingType == EBuildingType.HumanHouse;
 
     [Header("Unit Settings")]
     public Human HumanProductionprefab;
@@ -55,7 +57,7 @@ public class BuildingHumans : BuildingBase
         {
             ProductionResourceTimePassed = 0;
             float gold = 0;
-            foreach (var human in insideHumanList)
+            foreach (var human in insideHumanList.Where(x => x.IsWorking))
             {
                 gold += human.GoldProduced();
             }
@@ -65,12 +67,19 @@ public class BuildingHumans : BuildingBase
 
     public void Enter(Human human)
     {
+        if (IsHouse)
+            human.StartResting();
+        else
+            human.StartWorking();
+
+        human.ActiveVisibilityComponents(false);
         insideHumanList.Add(human);
     }
 
     public void Exit(Human human)
     {
         insideHumanList?.Remove(human);
+        human.ActiveVisibilityComponents(false);
     }
 
     public override void AddToQueue()

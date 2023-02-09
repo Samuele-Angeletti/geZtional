@@ -51,8 +51,6 @@ public class CameraController : MonoBehaviour
     bool _dragging;
     List<Selectable> castedSelectables;
 
-
-
     private void Start()
     {
         _newPosition = transform.position;
@@ -327,14 +325,83 @@ public class CameraController : MonoBehaviour
 
     public void RightClickedPerfomed()
     {
-        // TODO: se con il ray cast becco un nemico, allora attacca, se becco una struttura allora boh, altrimenti move
-        RaycastHit[] hits;
-        Vector3 mousePosition = GetMousePosition(out hits);
+        Vector3 mousePosition = GetMousePosition(out RaycastHit[] hits);
 
-        //if (hits.Any(x => x.collider.gameObject.GetComponent<Human>()))
-        //    _playerController.SetDestinationAndAttack(mousePosition, hits.First(x => x.collider.gameObject.GetComponent<Human>()).collider.gameObject);
-        //else
+        if (!hits.Any(x => x.collider.gameObject.GetComponent<Selectable>()))
+        {
             _playerController.SetUnitsDestination(mousePosition);
+        }
+        else
+        {
+            foreach (var selectable in hits.Select(x => x.collider.gameObject.GetComponent<Selectable>()).Where(x => x != null))
+            {
+                switch(_playerController.Faction)
+                {
+                    case EFactionType.Zombie:
+
+                        BuildingZombies buildingZombieFriend = selectable as BuildingZombies;
+                        if (buildingZombieFriend != null)
+                        {
+                            buildingZombieFriend.Interact();
+                            return;
+                        }
+
+                        BuildingHumans buildingHumansEnemy = selectable as BuildingHumans;
+                        if (buildingHumansEnemy != null)
+                        {
+                            buildingHumansEnemy.Attack();
+                            return;
+                        }
+
+                        Zombie zombieFriend = selectable as Zombie;
+                        if(zombieFriend != null)
+                        {
+                            _playerController.SetUnitsDestination(mousePosition);
+                            return;
+                        }
+                        Human humanEnemy = selectable as Human;
+                        if (humanEnemy != null)
+                        {
+                            _playerController.SetDestinationAndAttack(mousePosition, humanEnemy.gameObject);
+                            return;
+                        }
+
+                        break;
+                    case EFactionType.Human:
+
+                        BuildingHumans buildingHumansFriend = selectable as BuildingHumans;
+                        if (buildingHumansFriend != null)
+                        {
+                            buildingHumansFriend.Interact();
+                            return;
+                        }
+
+                        BuildingZombies buildingZombieEnemy = selectable as BuildingZombies;
+                        if (buildingZombieEnemy != null)
+                        {
+                            buildingZombieEnemy.Attack();
+                            return;
+                        }
+
+                        Human humanFriend = selectable as Human;
+                        if(humanFriend != null)
+                        {
+                            _playerController.SetUnitsDestination(mousePosition);
+                            return;
+                        }
+                        Zombie zombieEnemy = selectable as Zombie;
+                        if (zombieEnemy != null)
+                        {
+                            _playerController.SetDestinationAndAttack(mousePosition, zombieEnemy.gameObject);
+                            return;
+                        }
+
+                        break;
+                }
+
+            }
+        }
+
     }
 
     private bool OverUIElement()

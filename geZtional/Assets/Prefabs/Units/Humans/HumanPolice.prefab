@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9069248086724029910}
   - component: {fileID: 2409130773255450209}
   - component: {fileID: 3096196635633052668}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Nose
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7967451817397749889}
   - component: {fileID: 5227753330842790475}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: SelectionRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -176,14 +176,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5744072428833561184}
+  - component: {fileID: 6635759101668310250}
+  - component: {fileID: 7473355696183400108}
+  - component: {fileID: 3152113263441879831}
   - component: {fileID: 5744072428833561190}
   - component: {fileID: 5744072428833561191}
   - component: {fileID: 1770095165092946071}
-  - component: {fileID: 6635759101668310250}
   - component: {fileID: 7712989157060499635}
-  - component: {fileID: 7473355696183400108}
-  m_Layer: 6
-  m_Name: Civil
+  m_Layer: 9
+  m_Name: HumanPolice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -206,6 +207,58 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6635759101668310250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5744072428833561185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0556620a77e5e8a43a55f3b471730393, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsSelected: 0
+  SelectableType: 0
+  FactionType: 0
+  ZombiePrefabToSpawn: {fileID: 1448831787210824715, guid: 747e99355fdf58d44be71715b8738b99, type: 3}
+  selectionGraphics: {fileID: 5227753330842790475}
+  life: 100
+  damage: 10
+  speedMovement: 8
+  goldProductionPerSecond: 0.5
+  restingTime: 480
+  workingTime: 600
+--- !u!114 &7473355696183400108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5744072428833561185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aad0d88959ef7340801f5ab358c8f87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxLife: 0
+--- !u!114 &3152113263441879831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5744072428833561185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad7fae4f16c8c684f8607d480dea32f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 0
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!136 &5744072428833561190
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -258,23 +311,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &6635759101668310250
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5744072428833561185}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0556620a77e5e8a43a55f3b471730393, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsSelected: 0
-  SelectableType: 0
-  FactionType: 0
-  ZombiePrefabToSpawn: {fileID: 1448831787210824715, guid: 747e99355fdf58d44be71715b8738b99, type: 3}
-  selectionGraphics: {fileID: 5227753330842790475}
 --- !u!114 &7712989157060499635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,20 +351,6 @@ MonoBehaviour:
       Version: 1.7.2
   gizmoViewMode: 2
   showBehaviorDesignerGizmo: 1
---- !u!114 &7473355696183400108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5744072428833561185}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3aad0d88959ef7340801f5ab358c8f87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxLife: 30
-  DamageableType: 0
 --- !u!1 &5744072429058883869
 GameObject:
   m_ObjectHideFlags: 0
@@ -340,7 +362,7 @@ GameObject:
   - component: {fileID: 5744072429058884065}
   - component: {fileID: 5744072429058884066}
   - component: {fileID: 5744072429058884067}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: MainGraphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -391,7 +413,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d4802a6b427a18d44acf2cf12e90800d, type: 2}
+  - {fileID: 2100000, guid: 43a660606e131fa4fae8ba100ed5b5e4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

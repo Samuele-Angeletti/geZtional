@@ -6,68 +6,54 @@ using UnityEngine.AI;
 
 public class Damageable : MonoBehaviour
 {
-    [SerializeField] float maxLife;
+    [HideInInspector] public float MaxLife;
 
-    [HideInInspector] public EDamageableType DamageableType;
-
-    float currentLife;
+    float _currentLife;
     
-    IDestructible destructible;
-    Rigidbody rigidBody;
-    NavMeshAgent agent;
-    BehaviorTree behaviorTree;
+    IDestructible _destructible;
+    NavMeshAgent _agent;
+    BehaviorTree _behaviorTree;
+    Collider _collider;
     private void Start()
     {
-        currentLife = maxLife;
-        destructible = gameObject.SearchComponent<IDestructible>();
+        _currentLife = MaxLife;
+        _destructible = gameObject.SearchComponent<IDestructible>();
 
-        //HumanBuilding humanBuilding = gameObject.SearchComponent<HumanBuilding>();
-        //if (humanBuilding != null)
-        //    DamageableType = EDamageableType.HumanBuilding;
-        //else
-        //{
-        //    Human human = gameObject.SearchComponent<Human>();
-        //    if (human != null)
-        //        DamageableType = EDamageableType.Human;
-        //    else
-        //    {
-        //        BuildingZombies building = gameObject.SearchComponent<BuildingZombies>();
-        //        DamageableType = building != null ? EDamageableType.ZombieBuilding : EDamageableType.Zombie;
-        //    }
-        //}
-        agent = gameObject.SearchComponent<NavMeshAgent>();
-        behaviorTree = gameObject.SearchComponent<BehaviorTree>();
-        rigidBody = gameObject.SearchComponent<Rigidbody>();
+        _agent = gameObject.SearchComponent<NavMeshAgent>();
+        _behaviorTree = gameObject.SearchComponent<BehaviorTree>();
+        _collider = gameObject.SearchComponent<Collider>();
     }
 
-    public void Damage(float amount, float forceAttack, Vector3 impactPoint)
+    public void Damage(float amount)
     {
-        currentLife -= amount;
+        _currentLife -= amount;
         
-        if(currentLife <= 0)
+        if(_currentLife <= 0)
         {
-            destructible.Kill();
+            _destructible.Kill();
         }
         else
         {
             StartCoroutine(GotDamageCoroutine());
-            rigidBody.AddForce(new Vector3(impactPoint.x, 0, impactPoint.z) * forceAttack);
-
         }
     }
 
     public IEnumerator GotDamageCoroutine()
     {
-        if (agent != null)
-            agent.enabled = false;
-        if (behaviorTree != null)
-            behaviorTree.enabled = false;
+        if (_agent != null)
+            _agent.enabled = false;
+        if (_behaviorTree != null)
+            _behaviorTree.enabled = false;
+        if (_collider != null)
+            _collider.enabled = false;
 
         yield return new WaitForSeconds(0.5f);
 
-        if (agent != null)
-            agent.enabled = true;
-        if (behaviorTree != null)
-            behaviorTree.enabled = true;
+        if (_agent != null)
+            _agent.enabled = true;
+        if (_behaviorTree != null)
+            _behaviorTree.enabled = true;
+        if (_collider != null)
+            _collider.enabled = true;
     }
 }

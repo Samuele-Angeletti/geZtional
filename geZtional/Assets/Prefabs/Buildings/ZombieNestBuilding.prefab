@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1896854573444850159}
   - component: {fileID: 1896854573444850144}
   - component: {fileID: 1896854573444850145}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 1896854573450666966}
   - component: {fileID: 1896854573450666967}
   - component: {fileID: 2110345208}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ZombieNestBuilding
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,7 +140,8 @@ MonoBehaviour:
   buildingType: 0
   ProductionQueueLimit: 10
   TimeProductionUnit: 5
-  TimePassed: 0
+  ProductionUnitTimePassed: 0
+  ProductionResourceTimePassed: 0
   DestinationFlag: {x: 0, y: 0, z: 0}
   ProductionQueue: 0
   BuildingLife: 1000
@@ -203,7 +204,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4056070201834046362}
   - component: {fileID: 2714947452332000528}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SelectionRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -4,20 +4,16 @@ using UnityEngine;
 
 public class Damager : MonoBehaviour
 {
-    [SerializeField] float damage;
-    [SerializeField] float strength;
-    [SerializeField] EDamageableType target;
+    [HideInInspector] public float Damage;
+    [SerializeField] LayerMask targetMask;
 
     private void OnCollisionEnter(Collision collision)
     {
-        Damageable damageable = collision.gameObject.GetComponent<Damageable>();
-        if(damageable != null)
+        if(collision.gameObject.TryGetComponent<Damageable>(out var damageable))
         {
-            if (damageable.DamageableType == target)
+            if (targetMask.Contains(damageable.gameObject.layer))
             {
-
-                damageable.Damage(damage, strength, collision.contacts[Random.Range(0, collision.contactCount)].point);
-                
+                damageable.Damage(Damage);
             }
         }
     }
